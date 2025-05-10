@@ -8,6 +8,10 @@ let app=express()
 app.use(cors())
 app.use(express.json())
 
+app.use("/uploads/category",express.static("uploads/category")) //Allow Frontend Folder Access
+app.use("/uploads/product",express.static("uploads/product")) //Allow Frontend Folder Access
+app.use("/uploads/slider",express.static("uploads/slider")) //Allow Frontend Folder Access
+
 app.use("/admin",adminRoutes)
 
 

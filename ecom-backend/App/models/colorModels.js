@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 let colorSchema = mongoose.Schema({
     colorName: {
         type: String,
+        unique: true,
         minlength: 3,
         maxlength: 20,
         required: true

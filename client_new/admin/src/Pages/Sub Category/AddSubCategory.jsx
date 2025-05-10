@@ -5,8 +5,27 @@ import "dropify/dist/js/dropify.min.js";
 import Breadcrumb from "../../common/Breadcrumb";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { apiBaseUrl } from "../../Config";
 
 export default function AddSubCategory() {
+  
+  let [parentCategory,setParentCategory]=useState([])
+
+  let getParentCategory=()=>{
+    axios.get(`${apiBaseUrl}/subcategory/parent-category`)
+    .then((res)=>res.data)
+    .then((finalRes)=>{
+      setParentCategory(finalRes.categoryList)
+    })
+  }
+
+
+  useEffect(()=>{
+    getParentCategory()
+  },[])
+
+
   useEffect(() => {
     $(".dropify").dropify({
       messages: {
@@ -78,9 +97,19 @@ export default function AddSubCategory() {
                     className="border-2 border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
                   >
                     <option value="">Select Category</option>
-                    <option value="Mens">Men's</option>
-                    <option value="Women">Women</option>
-                    <option value="Sale">Sale</option>
+                    {parentCategory.length>=1
+                      ?
+                        parentCategory.map((items)=>{
+                          return(
+                            <option value={items._id}> {items.categoryName} </option>
+                          )
+                        })
+                      :
+                      ''
+                    
+                    }
+                   
+                    
                   </select>
                 </div>
 

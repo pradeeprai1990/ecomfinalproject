@@ -4,6 +4,7 @@ let materialSchema = mongoose.Schema({
    materialName: {
         type: String,
         minlength: 3,
+        unique: true,
         maxlength: 20,
         required: true
     },

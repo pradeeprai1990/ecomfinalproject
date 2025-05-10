@@ -1,7 +1,7 @@
 let express=require("express")
 let path=require("path")
 const multer = require('multer');
-const { categoryInsert } = require("../../controllers/admin/categoryController")
+const { categoryInsert, categoryView, changeStatus, editRowData, categoryUpdate } = require("../../controllers/admin/categoryController")
 let categoryRoutes=express.Router()
 
 const storage = multer.diskStorage({
@@ -19,6 +19,14 @@ const storage = multer.diskStorage({
 
 categoryRoutes.post('/insert',upload.single('categoryImage'),categoryInsert)
 
+
+categoryRoutes.get('/view',categoryView)
+
+categoryRoutes.put('/change-status/:id',changeStatus)
+
+categoryRoutes.get('/edit-row-data/:id',editRowData)
+
+categoryRoutes.put('/update/:id',upload.single('categoryImage'),categoryUpdate)
 // categoryRoutes.delete('/delete',categoryDelete)
 
 module.exports={categoryRoutes}
